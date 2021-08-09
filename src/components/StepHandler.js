@@ -514,7 +514,7 @@ const avaiableAppointments = [
     {
         id: '3',
         date: "2021-09-30",
-        time: '10:00am',
+        time: '11:20am',
         address: 'Queensway  Mississauga, ON L5B 1B6',
         type: 'Pfizer',
     },
