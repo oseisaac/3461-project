@@ -161,6 +161,7 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
             const res = avaiableAppointments.filter(appt => new Date(appt.date.replaceAll("-", ",")) > new Date(state.pdate.replaceAll("-", ",")))
             setresults(res)
             setcheck(true)
+            setLocalError({})
         }
         else {
             if (userClicked) {
@@ -170,7 +171,7 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
     }
 
     useEffect(() => {
-        // handleDate()
+        handleDate()
     }, []);
 
 
@@ -234,7 +235,7 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
                                             {slot.address}
                                         </div>
                                         <div className="right">
-                                            <p>{slot.date}{slot.time}</p>
+                                            <p>{slot.date}, {slot.time}</p>
                                             <span>{slot.type}</span>
                                         </div>
                                     </Button>
