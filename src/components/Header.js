@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Box, Button, createStyles, Drawer, IconButton, Link, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, withStyles } from '@material-ui/core';
+import { AppBar, Box, Drawer, IconButton, Link, makeStyles, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const Header = ({ onStepChange }) => {

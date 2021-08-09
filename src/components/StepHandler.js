@@ -171,7 +171,7 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
 
     useEffect(() => {
         handleDate()
-    }, [])
+    }, []);
 
 
     return (
