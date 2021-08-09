@@ -9,7 +9,6 @@ function App() {
   const [step, setStep] = useState(1)
 
   const handleStep = (val) => {
-    console.log(val)
     setStep(step + val)
   }
   return (
