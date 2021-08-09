@@ -1,10 +1,6 @@
 import React from 'react';
 import { AppBar, Box, Button, createStyles, Drawer, IconButton, Link, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, withStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import LayersIcon from '@material-ui/icons/Layers';
-import FilterHdrIcon from '@material-ui/icons/FilterHdr';
-import DirectionsBusIcon from '@material-ui/icons/DirectionsBus';
-import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
 
 const Header = ({ onStepChange }) => {
     const classes = useStyles();

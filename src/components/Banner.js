@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Box, Container, Grid, makeStyles, Typography } from '@material-ui/core';
 import bannerImg from '../assets/banner-images.png'
 import React from 'react';
 
