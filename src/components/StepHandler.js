@@ -237,7 +237,7 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
                     <div className="appt-list">
                         <h4>Available dates for {state.dose === '1' ? "first" : "second"} dose</h4>
                         {
-                            results.first.slice(0, 4).map((slot, index) => {
+                            results.first.slice(0, 5).map((slot, index) => {
                                 // console.log(slot.id, state?.appointment, slot.id === state?.appointment)
                                 return (
                                     <Button className={`appt ${slot.id === state?.appointment_1 ? 'active-appt' : ''}`} key={index}
@@ -557,6 +557,13 @@ const avaiableAppointments = [
         id: '9',
         date: "2021-12-22",
         time: '10:00am',
+        address: '21 Queensway  , ON L5B 1B6',
+        type: 'Moderna',
+    },
+    {
+        id: '9',
+        date: "2021-10-11",
+        time: '17:30pm',
         address: '21 Queensway  , ON L5B 1B6',
         type: 'Moderna',
     },
