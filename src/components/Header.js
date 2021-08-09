@@ -17,18 +17,9 @@ const Header = ({ onStepChange }) => {
     return (
         <AppBar position="static" color="inherit" className={classes.appBar}>
             <Toolbar className={classes.toolbar} disableGutters variant='dense'>
-                <Link href="#" color="primary" underline="none" variant="h5" className={classes.brand}>
+                <Link href="#" onClick={() => onStepChange(1)} color="primary" underline="none" variant="h5" className={classes.brand}>
                     {/* <img src="nereus-assets/img/nereus-light.png" alt="" width="110" /> */}
                     VACC HELPER
-                </Link>
-                <Link href="#" color="textPrimary" variant="body2" className={classes.link}>
-                    Step One
-                </Link>
-                <Link href="#" color="textPrimary" variant="body2" className={classes.link}>
-                    Step Two
-                </Link>
-                <Link href="#" color="textPrimary" variant="body2" className={classes.link}>
-                    Step Three
                 </Link>
                 <IconButton edge="start" color="inherit" aria-label="menu" className={classes.menuButton} onClick={() => toggleDrawer(true)}>
                     <MenuIcon />
@@ -40,29 +31,6 @@ const Header = ({ onStepChange }) => {
                         <Link href="#" color="primary" underline="none" variant="h5" className={classes.linkBrand}>
                             <img src="nereus-assets/img/nereus-light.png" alt="" width="110" />
                         </Link>
-                    </Box>
-                    <List>
-                        <ListItem button key="Step One">
-                            <ListItemIcon className={classes.iconWrapper}>
-                                <LayersIcon className={classes.icon} />
-                            </ListItemIcon>
-                            <ListItemText primary="Step One" />
-                        </ListItem>
-                        <ListItem button key="Step Two">
-                            <ListItemIcon className={classes.iconWrapper}>
-                                <FilterHdrIcon className={classes.icon} />
-                            </ListItemIcon>
-                            <ListItemText primary="Step Two" />
-                        </ListItem>
-                        <ListItem button key="Step Three">
-                            <ListItemIcon className={classes.iconWrapper}>
-                                <DirectionsBusIcon className={classes.icon} />
-                            </ListItemIcon>
-                            <ListItemText primary="Step Three" />
-                        </ListItem>
-                    </List>
-                    <Box mt={1} ml={2} pt={3} border={1} borderBottom={0} borderLeft={0} borderRight={0} borderColor="background.emphasis">
-                        <Button variant="contained" color="secondary" fullWidth>Action</Button>
                     </Box>
                 </div>
             </Drawer>
