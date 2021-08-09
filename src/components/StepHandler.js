@@ -152,14 +152,14 @@ const StepOne = ({ state, onChange, errors, handleNext }) => {
 }
 const StepTwo = ({ state, onChange, errors, handleNext }) => {
     const [check, setcheck] = useState(state?.appointment ? true : false)
-    const [results, setresults] = useState([])
+    const [results, setresults] = useState({ first: [], second: [] })
     const [localErrors, setLocalError] = useState({})
     console.log(state)
 
     const handleDate = (userClicked) => {
         if (state?.pdate) {
             const res = avaiableAppointments.filter(appt => new Date(appt.date.replaceAll("-", ",")) > new Date(state.pdate.replaceAll("-", ",")))
-            setresults(res)
+            setresults({ first: res, second: [] })
             setcheck(true)
             setLocalError({})
         }
@@ -168,6 +168,15 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
                 setLocalError({ pdate: { message: 'Required to view Available Date' } })
             }
         }
+    }
+
+    const handleSecondDate = (firstDate) => {
+
+        const res = avaiableAppointments.filter(appt => Math.abs(new Date(firstDate.replaceAll("-", ",")) - new Date(appt.date.replaceAll("-", ","))) > 18)
+        setresults({ ...results, second: res })
+        // setcheck(true)
+        // setLocalError({})
+
     }
 
     useEffect(() => {
@@ -223,12 +232,44 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
                 check && (
                     <div className="appt-list">
                         {
-                            results.map((slot, index) => {
+                            results.first.map((slot, index) => {
                                 console.log(slot.id, state?.appointment, slot.id === state?.appointment)
                                 return (
-                                    <Button className={`appt ${slot.id === state?.appointment ? 'active-appt' : ''}`} key={index}
+                                    <Button className={`appt ${slot.id === state?.appointment_1 ? 'active-appt' : ''}`} key={index}
+                                        onClick={() => {
+                                            onChange(
+                                                { target: { name: 'appointment_1', value: slot.id } }
+                                            )
+                                            if (state.dose === '1') {
+                                                handleSecondDate(slot.date)
+                                            }
+                                        }}
+                                    >
+                                        <div className="left">
+                                            {slot.address}
+                                        </div>
+                                        <div className="right">
+                                            <p>{slot.date}, {slot.time}</p>
+                                            <span>{slot.type}</span>
+                                        </div>
+                                    </Button>
+                                )
+                            })
+                        }
+                    </div>
+                )
+            }
+            {
+                check && state.dose === '1' && state.appointment_1 && (
+                    <div className="appt-list">
+                        <h4>Available dates for second dose</h4>
+                        {
+                            results.second.map((slot, index) => {
+                                console.log(slot.id, state?.appointment, slot.id === state?.appointment)
+                                return (
+                                    <Button className={`appt ${slot.id === state?.appointment_2 ? 'active-appt' : ''}`} key={index}
                                         onClick={() => onChange(
-                                            { target: { name: 'appointment', value: slot.id } }
+                                            { target: { name: 'appointment_2', value: slot.id } }
                                         )}
                                     >
                                         <div className="left">
@@ -248,7 +289,11 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
             <div className="btnWrapper">
                 <Button className="btn" onClick={() => handleNext(-1)}>Back</Button>
                 {
-                    state?.appointment && (<Button className="btn" onClick={() => handleNext(2)}>Continue</Button>)
+                    state.dose === '1' ? state?.appointment_1 && state?.appointment_2 && (
+                        <Button className="btn" onClick={() => handleNext(2)}>Continue</Button>
+                    ) : state?.appointment_1 && (
+                        <Button className="btn" onClick={() => handleNext(2)}>Continue</Button>
+                    )
                 }
             </div>
         </>
@@ -267,15 +312,23 @@ const StepThree = ({ state, onChange, errors, handleNext }) => {
                 </div>
                 <div className="right">
                     <div>
-                        <p><strong>Location : </strong> {avaiableAppointments.find(appt => appt.id === state?.appointment)?.address}</p>
+                        <p><strong>Location : </strong> {avaiableAppointments.find(appt => appt.id === state?.appointment_1)?.address}</p>
                         <p><strong>Phone : </strong> {state?.phone}</p>
                         <p><strong>Email : </strong> {state?.email}</p>
                         <p><strong>OHIP : </strong> {state?.healthcard}</p>
-                        <p><strong>Date : </strong> {state?.pdate},  {avaiableAppointments.find(appt => appt.id === state?.appointment)?.time}</p>
+                        <p><strong> {state.dose === '1' ? "Appointment 1" : "Date"} </strong> {state?.pdate},  {avaiableAppointments.find(appt => appt.id === state?.appointment_1)?.time}</p>
+                        {state.dose === '1' && (
+                            <p><strong> Appointment 2</strong> {avaiableAppointments.find(appt => appt.id === state?.appointment_1)?.date},  {avaiableAppointments.find(appt => appt.id === state?.appointment_1)?.time}</p>
+                        )}
                     </div>
                     <div>
                         <strong>Vaccine Type</strong>
-                        <p style={{ color: '#3071b4', fontWeight: 'bold', textDecoration: 'underline' }}>{avaiableAppointments.find(appt => appt.id === state?.appointment)?.type}</p>
+                        <p style={{ color: '#3071b4', fontWeight: 'bold', textDecoration: 'underline' }}>
+                            {avaiableAppointments.find(appt => appt.id === state?.appointment_1)?.type}
+                        </p>
+                        <p style={{ color: '#3071b4', fontWeight: 'bold', textDecoration: 'underline' }}>
+                            {avaiableAppointments.find(appt => appt.id === state?.appointment_2)?.type}
+                        </p>
                     </div>
                 </div>
             </div>
