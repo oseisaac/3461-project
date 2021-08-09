@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Banner from './components/Banner';
+import Header from './components/Header';
+import StepHandler from './components/StepHandler';
 
 function App() {
+
+  const [step, setStep] = useState(1)
+
+  const handleStep = (val) => {
+    console.log(val)
+    setStep(step + val)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header onStepChange={handleStep} />
+      <Banner />
+      <StepHandler step={step} onStepChange={handleStep} />
     </div>
   );
 }
