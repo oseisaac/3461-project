@@ -153,13 +153,19 @@ const StepOne = ({ state, onChange, errors, handleNext }) => {
 const StepTwo = ({ state, onChange, errors, handleNext }) => {
     const [check, setcheck] = useState(state?.appointment ? true : false)
     const [results, setresults] = useState([])
+    const [localErrors, setLocalError] = useState({})
     console.log(state)
 
-    const handleDate = () => {
+    const handleDate = (userClicked) => {
         if (state?.pdate) {
             const res = avaiableAppointments.filter(appt => new Date(appt.date.replaceAll("-", ",")) > new Date(state.pdate.replaceAll("-", ",")))
             setresults(res)
             setcheck(true)
+        }
+        else {
+            if (userClicked) {
+                setLocalError({ pdate: { message: 'Required to view Available Date' } })
+            }
         }
     }
 
@@ -202,15 +208,15 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
                 id="pdate"
                 type="date"
                 value={state?.pdate || ""}
-                error={Boolean(errors?.pdate)}
-                helperText={(errors?.pdate?.message)}
+                error={Boolean(errors?.pdate) || Boolean(localErrors?.pdate)}
+                helperText={(errors?.pdate?.message) || (localErrors?.pdate?.message)}
                 onChange={(e) => {
                     onChange(e)
                     setcheck(false)
                 }}
             />
             <div className="btnWrapper">
-                <Button className="btn" disabled={check} onClick={handleDate}>View Available Dates</Button>
+                <Button className="btn" disabled={check} onClick={() => handleDate(true)}>View Available Dates</Button>
             </div>
             {
                 check && (
@@ -268,7 +274,7 @@ const StepThree = ({ state, onChange, errors, handleNext }) => {
                     </div>
                     <div>
                         <strong>Vaccine Type</strong>
-                        <p>{avaiableAppointments.find(appt => appt.id === state?.appointment)?.type}</p>
+                        <p style={{ color: '#3071b4', fontWeight: 'bold', textDecoration: 'underline' }}>{avaiableAppointments.find(appt => appt.id === state?.appointment)?.type}</p>
                     </div>
                 </div>
             </div>
