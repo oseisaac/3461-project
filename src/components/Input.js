@@ -14,6 +14,11 @@ const Input = ({ ...rest }) => {
                 InputLabelProps={{
                     shrink: true,
                 }}
+                InputProps={{
+                    classes: {
+                        notchedOutline: classes.notchedOutline
+                    }
+                }}
                 {...rest}
             />
         </>
@@ -37,4 +42,7 @@ const useInputStyles = makeStyles((theme) => ({
         }
     },
     error: {},
+    notchedOutline: {
+        borderColor: "#3071b4  "
+    },
 }));
