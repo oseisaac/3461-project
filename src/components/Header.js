@@ -13,8 +13,7 @@ const Header = ({ onStepChange }) => {
     return (
         <AppBar position="static" color="inherit" className={classes.appBar}>
             <Toolbar className={classes.toolbar} disableGutters variant='dense'>
-                <Link href="#" onClick={() => onStepChange(1)} color="primary" underline="none" variant="h5" className={classes.brand}>
-                    {/* <img src="nereus-assets/img/nereus-light.png" alt="" width="110" /> */}
+                <Link href="/" color="primary" underline="none" variant="h5" className={classes.brand}>
                     VACC HELPER
                 </Link>
                 <IconButton edge="start" color="inherit" aria-label="menu" className={classes.menuButton} onClick={() => toggleDrawer(true)}>

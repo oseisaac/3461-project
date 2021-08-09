@@ -542,7 +542,7 @@ const avaiableAppointments = [
     {
         id: '7',
         date: "2021-10-03",
-        time: '11:30am',
+        time: '11:20am',
         address: '21 Queensway  , ON L5B 1B6',
         type: 'Moderna',
     },
