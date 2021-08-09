@@ -269,7 +269,7 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
                     <div className="appt-list">
                         <h4>Available dates for second dose</h4>
                         {
-                            results.second.map((slot, index) => {
+                            results.second.slice(0, 5).map((slot, index) => {
                                 // console.log(slot.id, state?.appointment, slot.id === state?.appointment)
                                 return (
                                     <Button className={`appt ${slot.id === state?.appointment_2 ? 'active-appt' : ''}`} key={index}
