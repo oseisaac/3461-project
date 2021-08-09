@@ -154,7 +154,7 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
     const [check, setcheck] = useState(state?.appointment ? true : false)
     const [results, setresults] = useState({ first: [], second: [] })
     const [localErrors, setLocalError] = useState({})
-    console.log(state)
+    // console.log(state)
 
     const handleDate = (userClicked) => {
         if (state?.pdate) {
@@ -171,11 +171,15 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
     }
 
     const handleSecondDate = (firstDate) => {
+        // console.log(firstDate)
+        const res = avaiableAppointments.filter(appt => {
+            // console.log(new Date(firstDate.replaceAll("-", ",")), new Date(appt.date.replaceAll("-", ",")),
+            //     new Date(appt.date.replaceAll("-", ",")) - new Date(firstDate.replaceAll("-", ",")) > 18 && new Date(appt.date.replaceAll("-", ",")) > new Date(firstDate.replaceAll("-", ","))
+            // )
 
-        const res = avaiableAppointments.filter(appt => Math.abs(new Date(firstDate.replaceAll("-", ",")) - new Date(appt.date.replaceAll("-", ","))) > 18)
+            return new Date(appt.date.replaceAll("-", ",")) - new Date(firstDate.replaceAll("-", ",")) > 18 && new Date(appt.date.replaceAll("-", ",")) > new Date(firstDate.replaceAll("-", ","))
+        })
         setresults({ ...results, second: res })
-        // setcheck(true)
-        // setLocalError({})
 
     }
 
@@ -231,9 +235,10 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
             {
                 check && (
                     <div className="appt-list">
+                        <h4>Available dates for {state.dose === '1' ? "first" : "second"} dose</h4>
                         {
-                            results.first.map((slot, index) => {
-                                console.log(slot.id, state?.appointment, slot.id === state?.appointment)
+                            results.first.slice(0, 4).map((slot, index) => {
+                                // console.log(slot.id, state?.appointment, slot.id === state?.appointment)
                                 return (
                                     <Button className={`appt ${slot.id === state?.appointment_1 ? 'active-appt' : ''}`} key={index}
                                         onClick={() => {
@@ -265,7 +270,7 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
                         <h4>Available dates for second dose</h4>
                         {
                             results.second.map((slot, index) => {
-                                console.log(slot.id, state?.appointment, slot.id === state?.appointment)
+                                // console.log(slot.id, state?.appointment, slot.id === state?.appointment)
                                 return (
                                     <Button className={`appt ${slot.id === state?.appointment_2 ? 'active-appt' : ''}`} key={index}
                                         onClick={() => onChange(
@@ -503,7 +508,7 @@ const avaiableAppointments = [
         id: '2',
         date: "2021-09-31",
         time: '3:00pm',
-        address: '21 Queensway West Mississauga, ON L5B 1B6',
+        address: 'Queensway  Mississauga, ON L5B 1B6',
         type: 'Pfizer',
     },
     {
@@ -511,6 +516,41 @@ const avaiableAppointments = [
         date: "2021-09-08",
         time: '12:00pm',
         address: '21 Queensway West Mississauga, ON L5B 1B6',
+        type: 'Moderna',
+    },
+    {
+        id: '4',
+        date: "2021-10-01",
+        time: '12:00pm',
+        address: '  West Mississauga, ON L5B 1B6',
+        type: 'Moderna',
+    },
+    {
+        id: '5',
+        date: "2021-10-02",
+        time: '12:00pm',
+        address: '21 Queensway  , ON L5B 1B6',
+        type: 'Moderna',
+    },
+    {
+        id: '6',
+        date: "2021-10-02",
+        time: '12:00pm',
+        address: '21 Queensway  , ON L5B 1B6',
+        type: 'Moderna',
+    },
+    {
+        id: '7',
+        date: "2021-11-08",
+        time: '12:00pm',
+        address: '21 Queensway  , ON L5B 1B6',
+        type: 'Moderna',
+    },
+    {
+        id: '8',
+        date: "2021-10-31",
+        time: '12:00pm',
+        address: '21 Queensway  , ON L5B 1B6',
         type: 'Moderna',
     },
 ]
