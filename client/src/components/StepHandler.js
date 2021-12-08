@@ -5,6 +5,8 @@ import Input from './Input';
 import calendarImg from '../assets/calendar.png'
 import checkImg from '../assets/success-green.png'
 
+import Axios from 'axios'
+
 
 const StepHandler = ({ step, onStepChange }) => {
     const classes = useStyles();
@@ -156,12 +158,26 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
     const [localErrors, setLocalError] = useState({})
     // console.log(state)
 
+
+
     const handleDate = (userClicked) => {
         if (state?.pdate) {
+            // const res = []
+            Axios.post('http://localhost:3001/events',{
+                date: state?.pdate
+            }).then(res => {
+                console.log(res.data.appointments)
+                const apps = res.data.appointments
+                setresults({ first: apps, second: [] })
+                setcheck(true)
+                setLocalError({})
+            }).catch(err => console.log(err))
+
             const res = avaiableAppointments.filter(appt => new Date(appt.date.replaceAll("-", ",")) > new Date(state.pdate.replaceAll("-", ",")))
-            setresults({ first: res, second: [] })
-            setcheck(true)
-            setLocalError({})
+            // console.log('res', res)
+            // setresults({ first: res, second: [] })
+            // setcheck(true)
+            // setLocalError({})
         }
         else {
             if (userClicked) {
@@ -251,7 +267,8 @@ const StepTwo = ({ state, onChange, errors, handleNext }) => {
                                         }}
                                     >
                                         <div className="left">
-                                            {slot.address}
+                                            <p>{slot.name}</p>
+                                            <p>{slot.address}</p>
                                         </div>
                                         <div className="right">
                                             <p>{slot.date}, {slot.time}</p>
