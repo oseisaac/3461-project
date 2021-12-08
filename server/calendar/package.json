@@ -1,0 +1,22 @@
+{
+  "name": "calendar",
+  "version": "1.0.0",
+  "description": "",
+  "author": "KennyAckermanHub <hashim.hirji@gmail.com>",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "start": "./bin/app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "googleapis": "^92.0.0",
+    "http-errors": "^1.8.1",
+    "pino": "^7.5.1",
+    "pino-http": "^6.3.3",
+    "pino-pretty": "^7.2.0"
+  }
+}
